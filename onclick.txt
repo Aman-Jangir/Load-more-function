@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    table {
+      margin: auto;
+      border: 1px solid black;
+      border-collapse: collapse;
+      background-color: bisque;
+    }
+    th {
+      border: 1px solid black;
+      padding-left: 80px;
+      padding-right: 80px;
+      font-size: 30px;
+    }
+    td {
+      border: 1px solid black;
+      padding-left: 80px;
+      padding-right: 80px;
+      font-size: 30px;
+    }
+  </style>
+  <body>
+    <h1>Pokemon Photos</h1>
+
+    <table id="demo" , class="demo1">
+      <tr>
+        <th>Names</th>
+        <!-- <th>URLs</th> -->
+      </tr>
+    </table>
+
+    <button id="btn" onclick="myfun()">Change</button>
+
+    <script>
+      var limit = 10;
+      var offset = 0;
+      
+      function myfun() {
+        var req = new XMLHttpRequest();
+        req.open(
+          "GET",
+          "https://pokeapi.co/api/v2/pokemon?offset=" +
+            offset +
+            "&limit=" +
+            limit,
+          true
+        );
+        req.send();
+
+        req.onreadystatechange = function () {
+          if (req.readyState == 4 && req.status == 200) {
+            var jsonObj = JSON.parse(req.responseText);
+            //console.log("jsonObj here", jsonObj);
+            var nameApi = jsonObj.results;
+            //console.log("nameApi here", nameApi);
+
+            function getFields(input, field) {
+              var output = [];
+              for (var i = 0; i < input.length; ++i)
+                output.push(input[i][field]);
+              return output;
+            }
+            var Names = getFields(nameApi, "name");
+            console.log(Names);
+
+            for (var i = 0; i < Names.length; i++) {
+              document.getElementById("demo").innerHTML +=
+                "<tr><td>" + Names[i] + "</td></tr>";
+            }
+            
+            offset += limit;
+
+            
+          }
+        };
+      }myfun()
+
+ </script>
+  </body>
+</html>

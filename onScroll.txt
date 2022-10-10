@@ -39,7 +39,7 @@
     <button id="btn" onclick="myfun()">Change</button>
 
     <script>
-       var limit = 20;
+       var limit = 2;
        var offset = 0;
 
        function myfun() {
@@ -80,43 +80,14 @@
 
            }
          };
-        
-         var page = 130
-         window.addEventListener('scroll', () =>{
-         var scrolled = window.scrollY;
-         //const innerHeight = window.innerHeight;
-         //const scrollHeight = document.documentElement.scrollHeight;
-         const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-         var pageY = window.pageYOffset
-         
-         //console.log("page",pageY)
-          console.log("Y",scrolled);
-         //console.log("H",innerHeight);
-         //console.log("SH",scrollHeight);
-          console.log("scrollable",scrolled)
-         
-         //console.log("pag",pageY)
-         //for(var i=260 ; i<853960;i++){
-          //console.log("pageno",i)
-
-          if(scrolled==scrollable){
-                myfun()
-                  page +=740
-              }
-         //}
-            
-        });
-      }myfun()
+}myfun()
        
        
-    
-    </script>
+    window.addEventListener('wheel',(event)=>{
+     if(event.deltaY>0){
+        myfun()
+      }
+    })
+ </script>
   </body>
 </html>
-
-<!-- scrollY
-  scrollHeight
-  pageYOffset
-  wheel
-  de
-innerHeight -->
